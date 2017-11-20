@@ -235,9 +235,10 @@ def character_creation():
               
         d = shelve.open(PlayerName, 'c')
         try:
-                d['player'] = { 'PlayerRace':PlayerRace, 'PlayerGender':PlayerGender, 'PlayerSubrace':PlayerSubrace}
+                d['player'] = { 'PlayerName':PlayerName, 'PlayerStr':PlayerStr, 'PlayerDex':PlayerDex, 'PlayerCon':PlayerCon, 'PlayerInt':PlayerInt, 'PlayerWis':PlayerWis, 'PlayerCha':PlayerCha, 'PlayerRace':PlayerRace, 'PlayerSubrace':PlayerSubrace, 'PlayerGender':PlayerGender, 'PlayerClass':PlayerClass, 'PlayerAlignment':PlayerAlignment, 'PlayerBackground':PlayerBackground}
+                #d['player'] = { 'PlayerRace':PlayerRace, 'PlayerGender':PlayerGender, 'PlayerSubrace':PlayerSubrace}
         finally:
                 d.close()
-        print ('Character' +' ' + PlayerName + PlayerRace + ' ' + 'has been created.')
+        print ('Character' +' ' + PlayerName +' has been created.')
 
 character_creation ()
