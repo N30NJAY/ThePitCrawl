@@ -20,7 +20,9 @@ def character_creation():
         #<Character Name>
         print("What is your name?")
         PlayerName = input()
-        
+        #Create the Character file
+        d = shelve.open(PlayerName, 'c')
+        d.update({'PlayerName':PlayerName})
         #<Point Buy>
         while PointsSpent != MaxPoints:
                 while True:
@@ -127,7 +129,6 @@ def character_creation():
                                 print('Invalid Entry')
         else:
                 print('Your Base Attributes are: STR:',PlayerStr,' DEX:',PlayerDex,' CON:',PlayerCon,' INT:',PlayerInt,' WIS',PlayerWis,' CHA:',PlayerCha)
-
         #<Enable Race Selection>
         PlayerRaces = ['Dwarf','Elf','Halfling','Human']
         while PlayerRace not in PlayerRaces:
@@ -232,13 +233,10 @@ def character_creation():
         while PlayerAlignment not in PlayerAlignments:
                 print("Choose your ALIGNMENT: Lawful Good, Neutral Good, Chaotic Good, Lawful Neutral, True Neutral, Chaotic Neutral, Lawful Evil, Neutral Evil, Chaotic Evil")
                 PlayerAlignment = input()
-              
-        d = shelve.open(PlayerName, 'c')
-        try:
-                d['player'] = { 'PlayerName':PlayerName, 'PlayerStr':PlayerStr, 'PlayerDex':PlayerDex, 'PlayerCon':PlayerCon, 'PlayerInt':PlayerInt, 'PlayerWis':PlayerWis, 'PlayerCha':PlayerCha, 'PlayerRace':PlayerRace, 'PlayerSubrace':PlayerSubrace, 'PlayerGender':PlayerGender, 'PlayerClass':PlayerClass, 'PlayerAlignment':PlayerAlignment, 'PlayerBackground':PlayerBackground}
+                
+                #d['player'] = { 'PlayerName':PlayerName, 'PlayerStr':PlayerStr, 'PlayerDex':PlayerDex, 'PlayerCon':PlayerCon, 'PlayerInt':PlayerInt, 'PlayerWis':PlayerWis, 'PlayerCha':PlayerCha, 'PlayerRace':PlayerRace, 'PlayerSubrace':PlayerSubrace, 'PlayerGender':PlayerGender, 'PlayerClass':PlayerClass, 'PlayerAlignment':PlayerAlignment, 'PlayerBackground':PlayerBackground}
                 #d['player'] = { 'PlayerRace':PlayerRace, 'PlayerGender':PlayerGender, 'PlayerSubrace':PlayerSubrace}
-        finally:
-                d.close()
+                
         print ('Character' +' ' + PlayerName +' has been created.')
-
+        d.close()
 character_creation ()
