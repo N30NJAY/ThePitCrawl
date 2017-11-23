@@ -15,6 +15,7 @@ def character_creation():
         PlayerClass = ""
         PlayerBackground = ""
         PlayerAlignment = ""
+        #Create Language Dictionary
         Languages = ['Common','Dwarvish','Elvish','Giant','Gnomish','Goblin','Halfling','Orc','Abyssal','Celestial','Draconic','Infernal']
         
         #<Character Name>
@@ -23,7 +24,7 @@ def character_creation():
         #Create the Character file
         d = shelve.open(PlayerName, 'c')
         d.update({'PlayerName':PlayerName})
-        #<Point Buy>
+        #<Point Buy> Runs in a loop until 27 points are spent, maybe make MaxPoints Variable? Maybe reset points spent if invalid?
         while PointsSpent != MaxPoints:
                 while True:
                         try:
@@ -129,18 +130,11 @@ def character_creation():
                                 print('Invalid Entry')
         else:
                 print('Your Base Attributes are: STR:',PlayerStr,' DEX:',PlayerDex,' CON:',PlayerCon,' INT:',PlayerInt,' WIS',PlayerWis,' CHA:',PlayerCha)
-        PlayerStrMod = PlayerStr//2-5
-        PlayerDexMod = PlayerDex//2-5
-        PlayerConMod = PlayerCon//2-5
-        PlayerIntMod = PlayerInt//2-5
-        PlayerWisMod = PlayerWis//2-5
-        PlayerChaMod = PlayerCha//2-5
-        d.update({'PlayerStr':PlayerStr,'PlayerDex':PlayerDex,'PlayerCon':PlayerCon,'PlayerWis':PlayerWis,'PlayerInt':PlayerInt,'PlayerCha':PlayerCha})
-        d.update({'PlayerStrMod':PlayerStrMod,'PlayerDexMod':PlayerDexMod,'PlayerConMod':PlayerConMod,'PlayerWisMod':PlayerWisMod,'PlayerIntMod':PlayerIntMod,'PlayerChaMod':PlayerChaMod})
         #<Enable Race Selection>
+        #Define Races to select from
         PlayerRaces = ['Dwarf','Elf','Halfling','Human']
         while PlayerRace not in PlayerRaces:
-        	print("First, choose a RACE: Dwarf, Elf, Halfling, Human")
+        	print('First, choose a RACE: ', PlayerRaces)
         	PlayerRace = input()
         	
         if PlayerRace == "Dwarf":
@@ -152,7 +146,7 @@ def character_creation():
                 PlayerLang = ['Common','Dwarven']
                 PlayerAbilities = ['Darkvision','Dwarven Resilience','Dwarven Combat Training','Tool Proficiency','Stonecunning']
                 while PlayerSubrace not in DwarfSubraces:
-                       print('Choose a SUBRACE: Hill, Mountain')
+                       print('Choose a SUBRACE: ', DwarfSubraces)
                        PlayerSubrace = input()
                 if PlayerSubrace == 'Hill':
                         PlayerWis = PlayerWis + 1
@@ -170,7 +164,7 @@ def character_creation():
                 PlayerLang = ['Common','Elvish']
                 PlayerAbilities = ['Darkvision','Keen Senses','Fey Ancestry','Trance']
                 while PlayerSubrace not in ElfSubraces:
-                        print('Choose a SUBRACE: High, Wood')
+                        print('Choose a SUBRACE: ', ElfSubraces)
                         PlayerSubrace = input()
                 if PlayerSubrace == 'High':
                         PlayerInt = PlayerInt + 1
@@ -188,7 +182,7 @@ def character_creation():
                 PlayerLang = ['Common','Halfling']
                 PlayerAbilities = ['Lucky','Brave','Halfling Nimbleness']
                 while PlayerSubrace not in HalflingSubraces:
-                        print('Choose a SUBRACE: Lightfoot, Stout')
+                        print('Choose a SUBRACE: ', HalflingSubraces)
                         PlayerSubrace = input()
                 if PlayerSubrace == 'Lightfoot':
                         PlayerCha = PlayerCha + 1
@@ -221,30 +215,33 @@ def character_creation():
         #<Enable Gender Selection>
         PlayerGenders = ['Female','Male','Other']
         while PlayerGender not in PlayerGenders:
-        	print("Secondly, choose your GENDER: Female, Male, Other")
+        	print('Secondly, choose your GENDER: ', PlayerGenders)
         	PlayerGender = input()
         
         #<Enable Class Selection>
         PlayerClasses = ['Cleric','Fighter','Rogue','Wizard']
         while PlayerClass not in PlayerClasses:
-                print("Next, choose your CLASS: Cleric, Fighter, Rogue, Wizard")
+                print('Next, choose your CLASS: ', PlayerClasses)
                 PlayerClass = input()
         
         #<Enable Background Selection>
         PlayerBackgrounds = ['Acolyte','Criminal','Folk Hero','Sage','Soldier']
         while PlayerBackground not in PlayerBackgrounds:
-                print("Now, choose your BACKGROUND: Acolyte, Criminal, Folk Hero, Sage, Soldier")
+                print('Now, choose your BACKGROUND: ', PlayerBackgrounds)
                 PlayerBackground = input()
         
         #<Enable Alignment Selection>
         PlayerAlignments = ['Lawful Good','Neutral Good','Chaotic Good','Lawful Neutral','True Neutral','Chaotic Neutral','Lawful Evil','Neutral Evil','Chaotic Evil']
         while PlayerAlignment not in PlayerAlignments:
-                print("Choose your ALIGNMENT: Lawful Good, Neutral Good, Chaotic Good, Lawful Neutral, True Neutral, Chaotic Neutral, Lawful Evil, Neutral Evil, Chaotic Evil")
+                print('Choose your ALIGNMENT: ', PlayerAlignments)
                 PlayerAlignment = input()
-                
-                #d['player'] = { 'PlayerName':PlayerName, 'PlayerStr':PlayerStr, 'PlayerDex':PlayerDex, 'PlayerCon':PlayerCon, 'PlayerInt':PlayerInt, 'PlayerWis':PlayerWis, 'PlayerCha':PlayerCha, 'PlayerRace':PlayerRace, 'PlayerSubrace':PlayerSubrace, 'PlayerGender':PlayerGender, 'PlayerClass':PlayerClass, 'PlayerAlignment':PlayerAlignment, 'PlayerBackground':PlayerBackground}
-                #d['player'] = { 'PlayerRace':PlayerRace, 'PlayerGender':PlayerGender, 'PlayerSubrace':PlayerSubrace}
-                
+
+        #CalculateAttribute Mods
+        PlayerStrMod = PlayerStr//2-5; PlayerDexMod = PlayerDex//2-5; PlayerConMod = PlayerCon//2-5; PlayerIntMod = PlayerInt//2-5; PlayerWisMod = PlayerWis//2-5; PlayerChaMod = PlayerCha//2-5
+        #Write Variables to Character Dictionary
+        d.update({'PlayerStr':PlayerStr,'PlayerDex':PlayerDex,'PlayerCon':PlayerCon,'PlayerWis':PlayerWis,'PlayerInt':PlayerInt,'PlayerCha':PlayerCha})
+        d.update({'PlayerStrMod':PlayerStrMod,'PlayerDexMod':PlayerDexMod,'PlayerConMod':PlayerConMod,'PlayerWisMod':PlayerWisMod,'PlayerIntMod':PlayerIntMod,'PlayerChaMod':PlayerChaMod})
+
         print ('Character' +' ' + PlayerName +' has been created.')
         d.close()
 character_creation ()
