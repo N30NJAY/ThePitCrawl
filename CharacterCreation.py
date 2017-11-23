@@ -129,6 +129,14 @@ def character_creation():
                                 print('Invalid Entry')
         else:
                 print('Your Base Attributes are: STR:',PlayerStr,' DEX:',PlayerDex,' CON:',PlayerCon,' INT:',PlayerInt,' WIS',PlayerWis,' CHA:',PlayerCha)
+        PlayerStrMod = PlayerStr//2-5
+        PlayerDexMod = PlayerDex//2-5
+        PlayerConMod = PlayerCon//2-5
+        PlayerIntMod = PlayerInt//2-5
+        PlayerWisMod = PlayerWis//2-5
+        PlayerChaMod = PlayerCha//2-5
+        d.update({'PlayerStr':PlayerStr,'PlayerDex':PlayerDex,'PlayerCon':PlayerCon,'PlayerWis':PlayerWis,'PlayerInt':PlayerInt,'PlayerCha':PlayerCha})
+        d.update({'PlayerStrMod':PlayerStrMod,'PlayerDexMod':PlayerDexMod,'PlayerConMod':PlayerConMod,'PlayerWisMod':PlayerWisMod,'PlayerIntMod':PlayerIntMod,'PlayerChaMod':PlayerChaMod})
         #<Enable Race Selection>
         PlayerRaces = ['Dwarf','Elf','Halfling','Human']
         while PlayerRace not in PlayerRaces:
