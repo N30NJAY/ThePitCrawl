@@ -244,4 +244,6 @@ def character_creation():
 
         print ('Character' +' ' + PlayerName +' has been created.')
         d.close()
-character_creation ()
+
+#Uncomment to allow to run the character_creation function directly.
+#character_creation()

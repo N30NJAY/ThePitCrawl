@@ -31,5 +31,5 @@ def character_viewer():
         print('No Character Found')
     finally:
         None
-#Run the character_viewer function
-character_viewer()
+#Uncomment to allow to run the character_viewer function directly
+#character_viewer()
