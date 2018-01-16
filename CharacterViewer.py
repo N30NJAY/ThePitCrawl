@@ -9,8 +9,8 @@ def character_viewer():
         PlayerName = input()
         d = shelve.open(PlayerName, 'r')
         print('Name: ' +d['PlayerName'])
-        #print('Gender: ' +player['PlayerGender'] + ' | Race: ' +player['PlayerSubrace'] +' ' +player['PlayerRace'] +' | Class: ' +player['PlayerClass'] +' | Background: ' +player['PlayerBackground'] +' | Alignment: ' +player['PlayerAlignment']) #+' | Experience: " +str(XP))
-        #print(" ")
+        print('Gender: ' +d['PlayerGender'] + ' | Race: ' +d['PlayerSubrace'] +' ' +d['PlayerRace'] +' | Class: ' +d['PlayerClass'] +' | Background: ' +d['PlayerBackground'] +' | Alignment: ' +d['PlayerAlignment'] +' | Experience: ' +d['PlayerExperience'])
+        print('')
         print('Strength:     ' +str(d['PlayerStr']).rjust(2, '0') +' | Modifier: ' +str(d['PlayerStrMod']).rjust(2, '0')) #+" | Save: " +str(STRS).rjust(2, '0'))
         print('Dexterity:    ' +str(d['PlayerDex']).rjust(2, '0') +' | Modifier: ' +str(d['PlayerDexMod']).rjust(2, '0')) #+" | Save: " +str(DEXS).rjust(2, '0'))
         print('Constitution: ' +str(d['PlayerCon']).rjust(2, '0') +' | Modifier: ' +str(d['PlayerConMod']).rjust(2, '0')) #+" | Save: " +str(CONS).rjust(2, '0'))
@@ -32,4 +32,4 @@ def character_viewer():
     finally:
         None
 #Uncomment to allow to run the character_viewer function directly
-#character_viewer()
+character_viewer()
