@@ -25,6 +25,7 @@ def character_creation():
         PlayerToolProf = ['']
         PlayerArmorProf = ['']
         PlayerAbilities = ['']
+        PlayerFeatures = ['']
         
         #Create Language Dictionary
         Languages = ['Common','Dwarvish','Elvish','Giant','Gnomish','Goblin','Halfling','Orc','Abyssal','Celestial','Draconic','Infernal']
@@ -182,7 +183,7 @@ def character_creation():
                         PlayerAbilities.extend (('Elf Weapon Training','Cantrip','Extra Language'))
                 if PlayerSubrace == 'Wood':
                         PlayerWis = PlayerWis + 1
-                        PlayerAbilities.append (('Elf Weapon Training','Fleet of Foot','Mask of the Wild'))
+                        PlayerAbilities.extend (('Elf Weapon Training','Fleet of Foot','Mask of the Wild'))
 
         elif PlayerRace == 'Halfling':
                 HalflingSubraces = ['Lightfoot','Stout']
@@ -200,7 +201,7 @@ def character_creation():
                         PlayerAbilities.extend ('Naturally Stealthy')
                 if PlayerSubrace == 'Stout':
                         PlayerCon = PlayerCon + 1
-                        PlayerAbilities.append ('Stout Resilience')
+                        PlayerAbilities.extend ('Stout Resilience')
                              
         elif PlayerRace == "Human":
                 PlayerSubrace = ''
@@ -215,10 +216,10 @@ def character_creation():
                 PlayerLang = ['Common']
                 while True:
                         try:
-                                choice = (input('Select a language: Common, Dwarvish, Elvish, Giant, Gnomish, Goblin, Halfling, Orc, Abyssal, Celestial, Draconic, Infernal'))
+                                choice = (input('Select a Language' + str(Languages)))
                                 if choice not in Languages:
                                         raise ValueError()
-                                PlayerLang.Append [choice]
+                                PlayerLang.extend ([choice])
                                 break
                         except ValueError:
                                 'Print Invalid Selection'
@@ -234,30 +235,65 @@ def character_creation():
         while PlayerClass not in PlayerClasses:
                 print('Next, choose your CLASS: ', PlayerClasses)
                 PlayerClass = input()
-        if PlayerClass = 'Cleric'
+        if PlayerClass == 'Cleric':
                 ClericSkills = ['History','Insight','Medicine','Persuasion','Religion']
                 while True:
                         try:
-                                choice = (input('Select a Skill Proficiency:' + ClericSkills))
+                                choice = (input('Select a Skill Proficiency:' + str(ClericSkills)))
                                 if choice not in ClericSkills:
                                         raise ValueError()
-                                PlayerSkillProf.Append [choice]
+                                PlayerSkillProf.extend ([choice])
+                                ClericSkills.remove(choice)
+                                choice = (input('Select a second Skill Proficiency:' + str(ClericSkills)))
+                                if choice not in ClericSkills:
+                                        raise ValueError()
+                                PlayerSkillProf.extend ([choice])
                                 break
                         except ValueError:
-                                print('Invalid Selection')
-        #        PlayerHitDie = 'd8'
-        #        PlayerSkillProf.extend = ((''))
-        #        PlayerSaveProf = ['']
-        #        PlayerWeaponProf = ['']
-        #        PlayerToolProf = ['']
-        #        PlayerArmorProf = ['']
-        #        PlayerAbilities = ['']
-                        
-        #if PlayerClass = 'Fighter'
+                                print('Invalid Selection')                    
+                PlayerSaveProf.extend (['Wisdom','Charisma'])
+                PlayerArmorProf.extend (['Light Armor','Medium Armor','Shields'])
+                PlayerWeaponProf.extend (['Simple Weapons'])
+                PlayerPrimaryAbility = 'Wisdom'
+                PlayerHitDie = 'd8'
+                #PlayerFeatures.extend = (['Spellcasting','Divine Domain'])
 
-        #if PlayerClass = 'Rogue'
-
-        #if PlayerClass = 'Wizard'
+        #if PlayerClass == 'Fighter':
+                #FighterSkills = []
+                #while True:
+                        #try:
+                                #choice = (input('Select a Skill Proficiency:' + FighterSkills))
+                                #if choice not in FighterSkills:
+                                        #raise ValueError()
+                                #PlayerSkillProf.Append [choice]
+                                #break
+                        #except ValueError:
+                                #print('Invalid Selection')
+        
+        #if PlayerClass == 'Rogue':
+                #RogueSkills = []
+                #while True:
+                        #try:
+                                #choice = (input('Select a Skill Proficiency:' + RogueSkills))
+                                #if choice not in RogueSkills:
+                                        #raise ValueError()
+                                #PlayerSkillProf.Append [choice]
+                                #break
+                        #except ValueError:
+                                #print('Invalid Selection')
+        
+        #if PlayerClass == 'Wizard':
+                #WizardSkills = []
+                #while True:
+                        #try:
+                                #choice = (input('Select a Skill Proficiency:' + RogueSkills))
+                                #if choice not in RogueSkills:
+                                        #raise ValueError()
+                                #PlayerSkillProf.Append [choice]
+                                #break
+                        #except ValueError:
+                                #print('Invalid Selection')
+        
         #<Enable Background Selection>
         PlayerBackgrounds = ['Acolyte','Criminal','Folk Hero','Sage','Soldier']
         while PlayerBackground not in PlayerBackgrounds:
