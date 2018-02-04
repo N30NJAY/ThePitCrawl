@@ -343,12 +343,12 @@ def character_creation():
                                         raise ValueError()
                                 PlayerSkillProf.extend ([choice])
                                 RogueSkills.remove(choice)
-                                choice = (input('Select a second Skill Proficiency:' + str(RogueSkills)))
+                                choice = (input('Select a third Skill Proficiency:' + str(RogueSkills)))
                                 if choice not in RogueSkills:
                                         raise ValueError()
                                 PlayerSkillProf.extend ([choice])
                                 RogueSkills.remove(choice)
-                                choice = (input('Select a second Skill Proficiency:' + str(RogueSkills)))
+                                choice = (input('Select a fourth Skill Proficiency:' + str(RogueSkills)))
                                 if choice not in RogueSkills:
                                         raise ValueError()
                                 PlayerSkillProf.extend ([choice])
