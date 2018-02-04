@@ -31,18 +31,25 @@ def character_creation():
         PlayerArmorProf = []
         PlayerAbilities = []
         PlayerFeatures = []
-        
-        #Create Language Dictionary
+
+        #Create Dictionaries
         Languages = ['Common','Dwarvish','Elvish','Giant','Gnomish','Goblin','Halfling','Orc','Abyssal','Celestial','Draconic','Infernal']
+        GamingSets = ['Dice Set','Playing Card Set']
+        ArtisansTools = ['Alchemists Supplies','Brewers Supplies','Calligraphers Supplies','Carpenters Tools','Cartographers Tools','Cobblers Tools','Cooks Utensils','Glassblowers Tools','Jewelers Tools','Leatherworkers Tools','Masons Tools','Painters Tools','Potters Tools','Smiths Tools','Tinkers Tools','Weavers Tools','Woodcarvers Tools']
+
         
         #<Character Name>
         print("What is your name?")
         PlayerName = input()
-        #Create the Character file
-        d = shelve.open(PlayerName, 'c')
-        d.update({'PlayerName':PlayerName})
-        print('How many points for attributes? (27 is standard)')
-        MaxPoints = int(input())
+        while True:
+                try:
+                        print('How many points for attributes? (27 is standard)')
+                        MaxPoints = int(input())
+                        if not (-1 < MaxPoints):
+                                raise ValueError()
+                        break
+                except ValueError:
+                        print('Invalid Entry')
         #<Point Buy> Runs in a loop until MaxPoints are spent| Maybe reset points spent if invalid?
         while PointsSpent != MaxPoints:
                 while True:
@@ -59,7 +66,8 @@ def character_creation():
                                 if PlayerStr == 15:
                                         StrPs = PlayerStr - 6
                                 PointsSpent = StrPs + DexPs + ConPs + IntPs + WisPs + ChaPs
-                                print ('Points Spent: ',PointsSpent,'/',MaxPoints)
+                                print ('Points Spent: ',PointsSpent,'/',MaxPoints,)
+                                print()
                                 break
                         except ValueError:
                                 print('Invalid Entry')
@@ -78,6 +86,7 @@ def character_creation():
                                         DexPs = PlayerDex - 6
                                 PointsSpent = StrPs + DexPs + ConPs + IntPs + WisPs + ChaPs
                                 print ('Points Spent: ',PointsSpent,'/',MaxPoints)
+                                print()                                
                                 break
                         except ValueError:
                                 print('Invalid Entry')
@@ -96,6 +105,7 @@ def character_creation():
                                         ConPs = PlayerCon - 6
                                 PointsSpent = StrPs + DexPs + ConPs + IntPs + WisPs + ChaPs
                                 print ('Points Spent: ',PointsSpent,'/',MaxPoints)
+                                print()                                
                                 break
                         except ValueError:
                                 print('Invalid Entry')
@@ -114,6 +124,7 @@ def character_creation():
                                         IntPs = PlayerInt - 6
                                 PointsSpent = StrPs + DexPs + ConPs + IntPs + WisPs + ChaPs
                                 print ('Points Spent: ',PointsSpent,'/',MaxPoints)
+                                print()                                
                                 break
                         except ValueError:
                                 print('Invalid Entry')
@@ -132,6 +143,7 @@ def character_creation():
                                         WisPs = PlayerWis - 6
                                 PointsSpent = StrPs + DexPs + ConPs + IntPs + WisPs + ChaPs
                                 print ('Points Spent: ',PointsSpent,'/',MaxPoints)
+                                print()                                
                                 break
                         except ValueError:
                                 print('Invalid Entry')
@@ -150,6 +162,7 @@ def character_creation():
                                         ChaPs = PlayerCha - 6
                                 PointsSpent = StrPs + DexPs + ConPs + IntPs + WisPs + ChaPs
                                 print ('Points Spent: ',PointsSpent,'/',MaxPoints)
+                                print()                                
                                 break
                         except ValueError:
                                 print('Invalid Entry')
@@ -169,6 +182,8 @@ def character_creation():
                 PlayerSize = 'Medium'
                 PlayerSpeed = '25'
                 PlayerLang = ['Common','Dwarven']
+                Languages.remove('Common')
+                Languages.remove('Dwarven')
                 PlayerAbilities = ['Darkvision','Dwarven Resilience','Dwarven Combat Training','Tool Proficiency','Stonecunning']
                 while PlayerSubrace not in DwarfSubraces:
                        print('Choose a SUBRACE: ', DwarfSubraces)
@@ -187,6 +202,8 @@ def character_creation():
                 PlayerSize = 'Medium'
                 PlayerSpeed = '30'
                 PlayerLang = ['Common','Elvish']
+                Languages.remove('Common')
+                Languages.remove('Elvish')
                 PlayerAbilities = ['Darkvision','Keen Senses','Fey Ancestry','Trance']
                 while PlayerSubrace not in ElfSubraces:
                         print('Choose a SUBRACE: ', ElfSubraces)
@@ -194,6 +211,11 @@ def character_creation():
                 if PlayerSubrace == 'High':
                         PlayerInt = PlayerInt + 1
                         PlayerAbilities.extend (('Elf Weapon Training','Cantrip','Extra Language'))
+                        choice = (input('Select a Language' + str(Languages)))
+                        if choice not in Languages:
+                                raise ValueError()
+                        PlayerLang.extend ([choice])
+                        Languages.remove(choice)
                 if PlayerSubrace == 'Wood':
                         PlayerWis = PlayerWis + 1
                         PlayerAbilities.extend (('Elf Weapon Training','Fleet of Foot','Mask of the Wild'))
@@ -205,6 +227,8 @@ def character_creation():
                 PlayerSize = 'Small'
                 PlayerSpeed = '25'
                 PlayerLang = ['Common','Halfling']
+                Languages.remove('Common')
+                Languages.remove('Halfling')
                 PlayerAbilities = ['Lucky','Brave','Halfling Nimbleness']
                 while PlayerSubrace not in HalflingSubraces:
                         print('Choose a SUBRACE: ', HalflingSubraces)
@@ -227,12 +251,14 @@ def character_creation():
                 PlayerSize = 'Medium'
                 PlayerSpeed = '30'
                 PlayerLang = ['Common']
+                Languages.remove (['Common'])
                 while True:
                         try:
                                 choice = (input('Select a Language' + str(Languages)))
                                 if choice not in Languages:
                                         raise ValueError()
                                 PlayerLang.extend ([choice])
+                                Languages.remove(choice)
                                 break
                         except ValueError:
                                 'Print Invalid Selection'
@@ -270,7 +296,7 @@ def character_creation():
                 PlayerPrimaryAbility = 'Wisdom'
                 PlayerHitDie = 'd8'
                 PlayerFeatures.extend (['Spellcasting','Divine Domain'])
-
+		#Equipment
         if PlayerClass == 'Fighter':
                 FighterSkills = ['Acrobatics','Animal Handling','Athletics','History','Insight','Intimidation','Perception','Survival']
                 while True:
@@ -301,7 +327,8 @@ def character_creation():
                         except ValueError:
                                 print('Invalid Selection')
                 PlayerHitDie = 'd10'
-                PlayerFeatures.extend (['Fighting Style','Second Wind'])        
+                PlayerFeatures.extend (['Fighting Style','Second Wind'])
+		#Equipment
         if PlayerClass == 'Rogue':
                 RogueSkills = ['Acrobatics','Athletics','Deception','Insight','Intimidation','Investigation','Perception','Performance','Persuasion','Sleight of Hand','Stealth']
                 while True:
@@ -336,6 +363,7 @@ def character_creation():
                 PlayerHitDie = 'd8'
                 PlayerFeatures.extend (['Expertise','Sneak attack','Thieves Cant'])
                 PlayerToolProf.extend (['Thieves tools'])
+		#Equipment
         if PlayerClass == 'Wizard':
                 WizardSkills = ['Arcana','History','Insight','Investigation','Medicine','Religion']
                 while True:
@@ -357,43 +385,116 @@ def character_creation():
                 PlayerWeaponProf.extend (['Daggers','Darts','Slings','Quarterstaffs','Light Crossbows'])
                 PlayerPrimaryAbility = 'Intelligence'
                 PlayerHitDie = 'd6'
-                PlayerFeatures.extend (['Spellcasting','Arcane Recovery'])                
+                PlayerFeatures.extend (['Spellcasting','Arcane Recovery'])
+		#Equipment
         #<Enable Background Selection>
         PlayerBackgrounds = ['Acolyte','Criminal','Folk Hero','Noble','Sage','Soldier']
         while PlayerBackground not in PlayerBackgrounds:
                 print('Now, choose your BACKGROUND: ', PlayerBackgrounds)
                 PlayerBackground = input()
-        #if PlayerBackground == 'Acolyte':
-                #insight religion proficiencies
-                #2 languages
+        if PlayerBackground == 'Acolyte':
+                PlayerSkillProf.extend (['insight','religion'])
+                while True:
+                        try:
+                                choice = (input('Select a Language' + str(Languages)))
+                                if choice not in Languages:
+                                        raise ValueError()
+                                PlayerLang.extend ([choice])
+                                Languages.remove(choice)
+                                choice = (input('Select another Language' + str(Languages)))
+                                if choice not in Languages:
+                                        raise ValueError()
+                                PlayerLang.extend ([choice])
+                                Languages.remove(choice)
+                                break
+                        except ValueError:
+                                print('Invalid Selection')
+                PlayerAbilities.extend (['Shelter Of The Faithful'])
+		#equipment
+        if PlayerBackground == 'Criminal':
+                PlayerSkillProf.extend (['Deception','Stealth'])
+                while True:
+                        try:
+                                choice = (input('Select a Gaming Set Proficiency: ' + str(GamingSets)))
+                                if choice not in GamingSets:
+                                        raise ValueError()
+                                PlayerToolProf.extend ([choice])
+                                break
+                        except ValueError:
+                                print('Invalid Selection')
+                PlayerToolProf.extend(['Thieves Tools'])
+                PlayerAbilities.extend (['Criminal Contact'])
                 #equipment
-                #abilities shelter of the faithful
-        #if PlayerBackground == 'Criminal':
-                #deception stealth proficiencies
-                #gaming set thieves tools proficiency
+        if PlayerBackground == 'Folk Hero':
+                PlayerSkillProf.extend (['Animal Handling','Survival'])
+                while True:
+                        try:
+                                choice = (input('Select a Artisans Tools Proficiency: ' + str(ArtisansTools)))
+                                if choice not in ArtisansTools:
+                                        raise ValueError()
+                                PlayerToolProf.extend ([choice])
+                                break
+                        except ValueError:
+                                print('Invalid Selection')
+                PlayerToolProf.extend(['Land Vehicles'])
+                PlayerAbilities.extend (['Rustic Hospitality'])
                 #equipment
-                #abilities criminal contact
-        #if PlayerBackground == 'Folk Hero':
-                #animal handling survival proficiency
-                #artisans tools land vehicles tools proficiency
+        if PlayerBackground == 'Noble':
+                PlayerSkillProf.extend (['History','Persuasion'])
+                while True:
+                        try:
+                                choice = (input('Select a Gaming Set Proficiency: ' + str(GamingSets)))
+                                if choice not in GamingSets:
+                                        raise ValueError()
+                                PlayerToolProf.extend ([choice])
+                                break
+                        except ValueError:
+                                print('Invalid Selection')
+                while True:
+                        try:
+                                choice = (input('Select a Language' + str(Languages)))
+                                if choice not in Languages:
+                                        raise ValueError()
+                                PlayerLang.extend ([choice])
+                                Languages.remove(choice)
+                                break
+                        except ValueError:
+                                'Print Invalid Selection'
+                PlayerAbilities.extend (['Position of Privilege'])
                 #equipment
-                #abilities rustic hospitality
-        #if PlayerBackground == 'Noble':
-                #history persuasion proficiency:
-                #Gaming set tools proficiency
-                #1 language
+        if PlayerBackground == 'Sage':
+                PlayerSkillProf.extend (['Arcana','History'])
+                while True:
+                        try:
+                                choice = (input('Select a Language' + str(Languages)))
+                                if choice not in Languages:
+                                        raise ValueError()
+                                PlayerLang.extend ([choice])
+                                Languages.remove(choice)
+                                choice = (input('Select another Language' + str(Languages)))
+                                if choice not in Languages:
+                                        raise ValueError()
+                                PlayerLang.extend ([choice])
+                                Languages.remove(choice)
+                                break
+                        except ValueError:
+                                print('Invalid Selection')
+                PlayerAbilities.extend (['Researcher'])
                 #equipment
-                #ability position of privilege
-        #if PlayerBackground == 'Sage':
-                #arcana history proficiency
-                #2 languages
+        if PlayerBackground == 'Soldier':
+                PlayerSkillProf.extend (['Athletics','Intimidation'])
+                while True:
+                        try:
+                                choice = (input('Select a Gaming Set Proficiency: ' + str(GamingSets)))
+                                if choice not in GamingSets:
+                                        raise ValueError()
+                                PlayerToolProf.extend ([choice])
+                                break
+                        except ValueError:
+                                print('Invalid Selection')
+                PlayerToolProf.extend(['Land Vehicles'])
+                PlayerAbility.extend(['Military Rank'])
                 #equipment
-                #ability researcher
-        #if PlayerBackground == 'Soldier':
-                #athletics intimidation proficiency
-                #gaming set vehicles land tools proficiency
-                #equipment
-                #ability Military Rank
         #<Enable Alignment Selection>
         PlayerAlignments = ['Lawful Good','Neutral Good','Chaotic Good','Lawful Neutral','True Neutral','Chaotic Neutral','Lawful Evil','Neutral Evil','Chaotic Evil']
         while PlayerAlignment not in PlayerAlignments:
@@ -402,12 +503,21 @@ def character_creation():
 
         #CalculateAttribute Mods
         PlayerStrMod = PlayerStr//2-5; PlayerDexMod = PlayerDex//2-5; PlayerConMod = PlayerCon//2-5; PlayerIntMod = PlayerInt//2-5; PlayerWisMod = PlayerWis//2-5; PlayerChaMod = PlayerCha//2-5
+        #Create the Character file
+        d = shelve.open(PlayerName, 'c')
+        d.update({'PlayerName':PlayerName})
+        #Convert lists to sets and back to remove duplicates
+        PlayerSkillProf = set(PlayerSkillProf)
+        PlayerSkillProf = list(PlayerSkillProf)
+        
         #Write Variables to Character Dictionary
-        d.update({'PlayerGender':PlayerGender,'PlayerRace':PlayerRace,'PlayerSubrace':PlayerSubrace,'PlayerClass':PlayerClass,'PlayerBackground':PlayerBackground,'PlayerAlignment':PlayerAlignment,'PlayerExperience':PlayerExperience})
+        d.update({'PlayerGender':PlayerGender,'PlayerRace':PlayerRace,'PlayerSubrace':PlayerSubrace,'PlayerClass':PlayerClass,'PlayerBackground':PlayerBackground,'PlayerAlignment':PlayerAlignment,'PlayerExperience':PlayerExperience,'PlayerLevel':PlayerLevel})
+        d.update({'PlayerProficiency':PlayerProficiency,'PlayerSkillProf':PlayerSkillProf,'PlayerSaveProf':PlayerSaveProf,'PlayerWeaponProf':PlayerWeaponProf,'PlayerToolProf':PlayerToolProf,'PlayerArmorProf':PlayerArmorProf,'PlayerAbilities':PlayerAbilities,'PlayerFeatures':PlayerFeatures})
         d.update({'PlayerStr':PlayerStr,'PlayerDex':PlayerDex,'PlayerCon':PlayerCon,'PlayerWis':PlayerWis,'PlayerInt':PlayerInt,'PlayerCha':PlayerCha})
         d.update({'PlayerStrMod':PlayerStrMod,'PlayerDexMod':PlayerDexMod,'PlayerConMod':PlayerConMod,'PlayerWisMod':PlayerWisMod,'PlayerIntMod':PlayerIntMod,'PlayerChaMod':PlayerChaMod})
 
         print ('Character' +' ' + PlayerName +' has been created.')
+        #Close the character file
         d.close()
 
 #Uncomment to allow to run the character_creation function directly.
