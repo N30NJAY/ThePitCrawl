@@ -23,7 +23,7 @@ def character_creation():
         PlayerAlignment = ''
         PlayerExperience = 0
         PlayerLevel = 1
-        PlayerProficiency = math.floor((PlayerLevel + 7)/4)
+        PlayerProf = math.floor((PlayerLevel + 7)/4)
         PlayerSkillProf = []
         PlayerSaveProf = []
         PlayerWeaponProf = []
@@ -251,7 +251,8 @@ def character_creation():
                 PlayerSize = 'Medium'
                 PlayerSpeed = '30'
                 PlayerLang = ['Common']
-                Languages.remove (['Common'])
+                Languages.remove ('Common')
+                
                 while True:
                         try:
                                 choice = (input('Select a Language' + str(Languages)))
@@ -283,6 +284,11 @@ def character_creation():
                                         raise ValueError()
                                 PlayerSkillProf.extend ([choice])
                                 ClericSkills.remove(choice)
+                                break
+                        except ValueError:
+                                print('Invalid Selection')             
+                while True:
+                        try:
                                 choice = (input('Select a second Skill Proficiency:' + str(ClericSkills)))
                                 if choice not in ClericSkills:
                                         raise ValueError()
@@ -306,6 +312,11 @@ def character_creation():
                                         raise ValueError()
                                 PlayerSkillProf.extend ([choice])
                                 FighterSkills.remove(choice)
+                                break
+                        except ValueError:
+                                print('Invalid Selection')
+                while True:
+                        try:
                                 choice = (input('Select a second Skill Proficiency:' + str(FighterSkills)))
                                 if choice not in FighterSkills:
                                         raise ValueError()
@@ -338,20 +349,35 @@ def character_creation():
                                         raise ValueError()
                                 PlayerSkillProf.extend ([choice])
                                 RogueSkills.remove(choice)
+                                break
+                        except ValueError:
+                                print('Invalid Selection')
+                while True:
+                        try:
                                 choice = (input('Select a second Skill Proficiency:' + str(RogueSkills)))
                                 if choice not in RogueSkills:
                                         raise ValueError()
                                 PlayerSkillProf.extend ([choice])
                                 RogueSkills.remove(choice)
+                                break
+                        except ValueError:
+                                print('Invalid Selection')
+                while True:
+                        try:
                                 choice = (input('Select a third Skill Proficiency:' + str(RogueSkills)))
                                 if choice not in RogueSkills:
                                         raise ValueError()
                                 PlayerSkillProf.extend ([choice])
                                 RogueSkills.remove(choice)
+                                break
+                        except ValueError:
+                                print('Invalid Selection')
+                while True:
+                        try:
                                 choice = (input('Select a fourth Skill Proficiency:' + str(RogueSkills)))
                                 if choice not in RogueSkills:
                                         raise ValueError()
-                                PlayerSkillProf.extend ([choice])
+                                PlayerSkillProf.extend ([choice])       
                                 RogueSkills.remove(choice)
                                 break
                         except ValueError:
@@ -373,6 +399,11 @@ def character_creation():
                                         raise ValueError()
                                 PlayerSkillProf.extend ([choice])
                                 WizardSkills.remove(choice)
+                                break
+                        except ValueError:
+                                print('Invalid Selection')
+                while True:
+                        try:
                                 choice = (input('Select a second Skill Proficiency:' + str(WizardSkills)))
                                 if choice not in WizardSkills:
                                         raise ValueError()
@@ -401,6 +432,11 @@ def character_creation():
                                         raise ValueError()
                                 PlayerLang.extend ([choice])
                                 Languages.remove(choice)
+                                break
+                        except ValueError:
+                                print('Invalid Selection')
+                while True:
+                        try:
                                 choice = (input('Select another Language' + str(Languages)))
                                 if choice not in Languages:
                                         raise ValueError()
@@ -471,6 +507,11 @@ def character_creation():
                                         raise ValueError()
                                 PlayerLang.extend ([choice])
                                 Languages.remove(choice)
+                                break
+                        except ValueError:
+                                print('Invalid Selection')
+                while True:
+                        try:
                                 choice = (input('Select another Language' + str(Languages)))
                                 if choice not in Languages:
                                         raise ValueError()
@@ -509,13 +550,105 @@ def character_creation():
         #Convert lists to sets and back to remove duplicates
         PlayerSkillProf = set(PlayerSkillProf)
         PlayerSkillProf = list(PlayerSkillProf)
+
+        #Calculate Skill Mods
+        if 'Acrobatics' in PlayerSkillProf:
+                PlayerAcro = PlayerProf + PlayerDexMod
+        else:
+                PlayerAcro = PlayerDexMod
+
+        if 'Animal Handling' in PlayerSkillProf:
+                PlayerAnim = PlayerProf + PlayerWisMod
+        else:
+                PlayerAnim = PlayerWisMod
+
+        if 'Arcana' in PlayerSkillProf:
+                PlayerArca = PlayerProf + PlayerIntMod
+        else:
+                PlayerArca = PlayerIntMod
         
+        if 'Athletics' in PlayerSkillProf:
+                PlayerAthl = PlayerProf + PlayerStrMod
+        else:
+                PlayerAthl = PlayerStrMod
+        
+        if 'Deception' in PlayerSkillProf:
+                PlayerDece = PlayerProf + PlayerChaMod
+        else:
+                PlayerDece = PlayerChaMod
+        
+        if 'History' in PlayerSkillProf:
+                PlayerHist = PlayerProf + PlayerIntMod
+        else:
+                PlayerHist = PlayerIntMod
+        
+        if 'Insight' in PlayerSkillProf:
+                PlayerInsi = PlayerProf + PlayerWisMod
+        else:
+                PlayerInsi = PlayerWisMod
+ 
+        if 'Intimidation' in PlayerSkillProf:
+                PlayerInti = PlayerProf + PlayerChaMod
+        else:
+                PlayerInti = PlayerChaMod
+        
+        if 'Investigation' in PlayerSkillProf:
+                PlayerInve = PlayerProf + PlayerIntMod
+        else:
+                PlayerInve = PlayerIntMod 
+        
+        if 'Medicine' in PlayerSkillProf:
+                PlayerMedi = PlayerProf + PlayerIntMod
+        else:
+                PlayerMedi = PlayerIntMod
+
+        if 'Nature' in PlayerSkillProf:
+                PlayerNatu = PlayerProf + PlayerIntMod
+        else:
+                PlayerNatu = PlayerIntMod
+        
+        if 'Perception' in PlayerSkillProf:
+                PlayerPerc = PlayerProf + PlayerWisMod
+        else:
+                PlayerPerc = PlayerWisMod
+
+        if 'Performance' in PlayerSkillProf:
+                PlayerPerf = PlayerProf + PlayerChaMod
+        else:
+                PlayerPerf = PlayerChaMod
+        
+        if 'Persuasion' in PlayerSkillProf:
+                PlayerPers = PlayerProf + PlayerChaMod
+        else:
+                PlayerPers = PlayerChaMod
+
+        if 'Religion' in PlayerSkillProf:
+                PlayerReli = PlayerProf + PlayerIntMod
+        else:
+                PlayerReli = PlayerIntMod
+        
+        if 'Sleight of Hand' in PlayerSkillProf:
+                PlayerSlei = PlayerProf + PlayerDexMod
+        else:
+                PlayerSlei = PlayerDexMod
+        
+        if 'Stealth' in PlayerSkillProf:
+                PlayerStea = PlayerProf + PlayerDexMod
+        else:
+                PlayerStea = PlayerDexMod
+        
+        if 'Survival' in PlayerSkillProf:
+                PlayerSurv = PlayerProf + PlayerWisMod
+        else:
+                PlayerSurv = PlayerWisMod
+
         #Write Variables to Character Dictionary
         d.update({'PlayerGender':PlayerGender,'PlayerRace':PlayerRace,'PlayerSubrace':PlayerSubrace,'PlayerClass':PlayerClass,'PlayerBackground':PlayerBackground,'PlayerAlignment':PlayerAlignment,'PlayerExperience':PlayerExperience,'PlayerLevel':PlayerLevel})
-        d.update({'PlayerProficiency':PlayerProficiency,'PlayerSkillProf':PlayerSkillProf,'PlayerSaveProf':PlayerSaveProf,'PlayerWeaponProf':PlayerWeaponProf,'PlayerToolProf':PlayerToolProf,'PlayerArmorProf':PlayerArmorProf,'PlayerAbilities':PlayerAbilities,'PlayerFeatures':PlayerFeatures})
+        d.update({'PlayerProf':PlayerProf,'PlayerSkillProf':PlayerSkillProf,'PlayerSaveProf':PlayerSaveProf,'PlayerWeaponProf':PlayerWeaponProf,'PlayerToolProf':PlayerToolProf,'PlayerArmorProf':PlayerArmorProf,'PlayerAbilities':PlayerAbilities,'PlayerFeatures':PlayerFeatures})
         d.update({'PlayerStr':PlayerStr,'PlayerDex':PlayerDex,'PlayerCon':PlayerCon,'PlayerWis':PlayerWis,'PlayerInt':PlayerInt,'PlayerCha':PlayerCha})
         d.update({'PlayerStrMod':PlayerStrMod,'PlayerDexMod':PlayerDexMod,'PlayerConMod':PlayerConMod,'PlayerWisMod':PlayerWisMod,'PlayerIntMod':PlayerIntMod,'PlayerChaMod':PlayerChaMod})
-
+        d.update({'PlayerAcro':PlayerAcro,'PlayerAnim':PlayerAnim,'PlayerArca':PlayerArca,'PlayerAthl':PlayerAthl,'PlayerDece':PlayerDece,'PlayerHist':PlayerHist,'PlayerInsi':PlayerInsi,'PlayerInti':PlayerInti,'PlayerInve':PlayerInve,'PlayerMedi':PlayerMedi,'PlayerNatu':PlayerNatu,'PlayerPerc':PlayerPerc,'PlayerPerf':PlayerPerf,'PlayerPers':PlayerPers,'PlayerReli':PlayerReli,'PlayerSlei':PlayerSlei,'PlayerStea':PlayerStea,'PlayerSurv':PlayerSurv})
+        
         print ('Character' +' ' + PlayerName +' has been created.')
         #Close the character file
         d.close()
