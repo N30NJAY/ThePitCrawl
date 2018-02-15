@@ -181,9 +181,9 @@ def character_creation():
                 PlayerCon = PlayerCon + 2
                 PlayerSize = 'Medium'
                 PlayerSpeed = '25'
-                PlayerLang = ['Common','Dwarven']
+                PlayerLang = ['Common','Dwarvish']
                 Languages.remove('Common')
-                Languages.remove('Dwarven')
+                Languages.remove('Dwarvish')
                 PlayerAbilities = ['Darkvision','Dwarven Resilience','Dwarven Combat Training','Tool Proficiency','Stonecunning']
                 while PlayerSubrace not in DwarfSubraces:
                        print('Choose a SUBRACE: ', DwarfSubraces)
@@ -642,13 +642,45 @@ def character_creation():
         else:
                 PlayerSurv = PlayerWisMod
 
+        #Calculate Saves
+        if 'Strength' in PlayerSaveProf:
+                PlayerStrSave = PlayerProf + PlayerStrMod
+        else:
+                PlayerStrSave = PlayerStrMod
+                
+        if 'Dexterity' in PlayerSaveProf:
+                PlayerDexSave = PlayerProf + PlayerDexMod
+        else:
+                PlayerDexSave = PlayerDexMod
+                
+        if 'Constitution' in PlayerSaveProf:
+                PlayerConSave = PlayerProf + PlayerConMod
+        else:
+                PlayerConSave = PlayerConMod
+                
+        if 'Intelligence' in PlayerSaveProf:
+                PlayerIntSave = PlayerProf + PlayerIntMod
+        else:
+                PlayerIntSave = PlayerIntMod
+                
+        if 'Wisdom' in PlayerSaveProf:
+                PlayerWisSave = PlayerProf + PlayerWisMod
+        else:
+                PlayerWisSave = PlayerWisMod
+                
+        if 'Charisma' in PlayerSaveProf:
+                PlayerChaSave = PlayerProf + PlayerChaMod
+        else:
+                PlayerChaSave = PlayerChaMod
+
         #Write Variables to Character Dictionary
         d.update({'PlayerGender':PlayerGender,'PlayerRace':PlayerRace,'PlayerSubrace':PlayerSubrace,'PlayerClass':PlayerClass,'PlayerBackground':PlayerBackground,'PlayerAlignment':PlayerAlignment,'PlayerExperience':PlayerExperience,'PlayerLevel':PlayerLevel})
         d.update({'PlayerProf':PlayerProf,'PlayerSkillProf':PlayerSkillProf,'PlayerSaveProf':PlayerSaveProf,'PlayerWeaponProf':PlayerWeaponProf,'PlayerToolProf':PlayerToolProf,'PlayerArmorProf':PlayerArmorProf,'PlayerAbilities':PlayerAbilities,'PlayerFeatures':PlayerFeatures})
         d.update({'PlayerStr':PlayerStr,'PlayerDex':PlayerDex,'PlayerCon':PlayerCon,'PlayerWis':PlayerWis,'PlayerInt':PlayerInt,'PlayerCha':PlayerCha})
         d.update({'PlayerStrMod':PlayerStrMod,'PlayerDexMod':PlayerDexMod,'PlayerConMod':PlayerConMod,'PlayerWisMod':PlayerWisMod,'PlayerIntMod':PlayerIntMod,'PlayerChaMod':PlayerChaMod})
+        d.update({'PlayerStrSave':PlayerStrSave, 'PlayerDexSave':PlayerDexSave,'PlayerConSave':PlayerConSave,'PlayerIntSave':PlayerIntSave,'PlayerWisSave':PlayerWisSave,'PlayerChaSave':PlayerChaSave})
         d.update({'PlayerAcro':PlayerAcro,'PlayerAnim':PlayerAnim,'PlayerArca':PlayerArca,'PlayerAthl':PlayerAthl,'PlayerDece':PlayerDece,'PlayerHist':PlayerHist,'PlayerInsi':PlayerInsi,'PlayerInti':PlayerInti,'PlayerInve':PlayerInve,'PlayerMedi':PlayerMedi,'PlayerNatu':PlayerNatu,'PlayerPerc':PlayerPerc,'PlayerPerf':PlayerPerf,'PlayerPers':PlayerPers,'PlayerReli':PlayerReli,'PlayerSlei':PlayerSlei,'PlayerStea':PlayerStea,'PlayerSurv':PlayerSurv})
-        
+        d.update({'PlayerWeaponProf':PlayerWeaponProf,'PlayerArmorProf':PlayerArmorProf,'PlayerToolProf':PlayerToolProf,'PlayerAbilities':PlayerAbilities,'PlayerFeatures':PlayerFeatures})
         print ('Character' +' ' + PlayerName +' has been created.')
         #Close the character file
         d.close()
